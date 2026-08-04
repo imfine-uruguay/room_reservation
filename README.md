@@ -4,7 +4,7 @@ This project uses **[uv](https://github.com/astral-sh/uv)** as a package and vir
 
 ---
 
-## 🚀 Why `uv`? Key Advantages
+## Why `uv`? Key Advantages
 
 - **Extremely fast performance:** 10x to 100x faster than `pip` or `poetry`.
 - **Integrated management:** Handles Python versions, virtual environments, and dependencies from `pyproject.toml`.
@@ -13,7 +13,7 @@ This project uses **[uv](https://github.com/astral-sh/uv)** as a package and vir
 
 ---
 
-## 🛠️ Project Initialization
+## Project Initialization
 
 ### 1. Install `uv`
 
