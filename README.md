@@ -31,3 +31,36 @@ powershell -c "irm [https://astral.sh/uv/install.ps1](https://astral.sh/uv/insta
 ```bash
 #Wherever operating system you are on, run the following command to initialize the project
 uv sync
+
+## To set up the project, a .env file must be created:
+
+```python
+# ── LLM ──
+LLM_MODEL_IN_GROP=llama-3.3-70b-versatile
+LLM_MODEL_URL=https://api.groq.com/openai/v1
+LLM_MODEL_TEMPERATURE=0.0
+LLM_MODEL_PROVIDER=GROQ
+LLM_MODEL_API_KEY=your_api_key_here
+
+DB_ENGINE=sqlite
+SQLITE_DB_PATH=utils/database/call_agent_ai_sqlite.db
+
+BACKEND_CORS_ORIGINS="*"
+
+PROJECT_NAME=Call_Agent_AI
+API_STR=/api
+
+ROOT_PATH=/call_agent_ai
+
+SSL_ENABLED=false
+
+
+PYTHONPATH=.
+
+
+APP_NAME=call_agent_ai
+APP_ENV=production
+LOG_ENABLED=true
+LOG_STDOUT=false
+LOG_DIR=./logs
+LOG_PRIMARY_DIR=/var/log/call_agent_ai
