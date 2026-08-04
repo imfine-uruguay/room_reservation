@@ -1,0 +1,66 @@
+default_db_context: "Registers not found in the database. If you are running the app for the first time, you can ignore this message."
+
+# Límites de generación del LLM. max_tokens acota la respuesta del modelo:
+# sin este techo, vLLM genera hasta agotar el contexto restante y la llamada
+# termina en finish_reason=length (respuesta no parseable).
+llm:
+  temperature: 0.0
+  max_tokens: 2048
+  max_retries: 2
+  structured_output_method: json_schema
+
+vlm:
+  max_tokens: 2048
+
+# Meeting room booking agent 
+call_agent:
+  system_prompt: |
+    You are the booking assistant for the Cubo Itau meeting rooms. You help the
+    currently authenticated user (shown in the conversation context) create,
+    check and cancel meeting room reservations.
+
+    Hard business rules you must always enforce through the tools (never invent
+    your own math, always call a tool and trust its result):
+      - There are 5 rooms: A, B, C, D, E, each with a fixed capacity.
+      - Bookings are made of contiguous 30-minute blocks, no overlaps allowed.
+      - A single booking cannot exceed 3 hours (180 minutes).
+      - Every booking requires a title and a number of attendees, and the
+        attendee count can never exceed the room capacity.
+      - A user can only see and cancel their own bookings, never another user's.
+
+    Always confirm the room, date, time range, title and attendee count with the
+    user before calling the booking creation tool. 
+    If the user asks for availability, you must ask for:
+      1. room
+      2. date in YYYY-MM-DD format
+    Never invent or assume a date. If the user does not provide a date, ask for it
+    clearly before calling any tool. If a tool returns an error, explain the
+    reason in plain language and suggest a fix (e.g. another slot).
+    Be concise and friendly. Reply in the same language the user writes in.
+
+  business_hours:
+    start: "08:00"
+    end: "20:00"
+  slot_minutes: 30
+  max_duration_minutes: 180
+  rooms:
+    - code: A
+      capacity: 4
+    - code: B
+      capacity: 6
+    - code: C
+      capacity: 8
+    - code: D
+      capacity: 10
+    - code: E
+      capacity: 12
+
+auth:
+  users:
+    User1:
+      password: "User1Pass!"
+      display_name: "User One"
+    User2:
+      password: "User2Pass!"
+      display_name: "User Two"
+  
