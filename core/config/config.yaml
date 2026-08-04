@@ -9,9 +9,6 @@ llm:
   max_retries: 2
   structured_output_method: json_schema
 
-vlm:
-  max_tokens: 2048
-
 # Meeting room booking agent 
 call_agent:
   system_prompt: |
