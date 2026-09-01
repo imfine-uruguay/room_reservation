@@ -36,7 +36,7 @@ uv sync
 
 ```python
 # ── LLM ──
-LLM_MODEL_IN_GROP=llama-3.3-70b-versatile
+LLM_MODEL_IN_GROP=openai/gpt-oss-20b
 LLM_MODEL_URL=https://api.groq.com/openai/v1
 LLM_MODEL_TEMPERATURE=0.0
 LLM_MODEL_PROVIDER=GROQ
