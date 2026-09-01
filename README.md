@@ -64,3 +64,121 @@ LOG_ENABLED=true
 LOG_STDOUT=false
 LOG_DIR=./logs
 LOG_PRIMARY_DIR=/var/log/call_agent_ai
+
+# Demo: Cubo Itaú — Meeting Room Assistant
+
+Ejemplo de interacción con el asistente conversacional para reserva de salas de reuniones.
+
+**Usuario:** User One
+**Contraseña:** `User1Pass!`
+
+---
+
+```
+=== Cubo Itau meeting room assistant ===
+Username: User One
+Password: User1Pass!
+You're connected. Type 'exit' to quit.
+```
+
+**You:** Quien eres?
+
+**Assistant:** Soy tu asistente de reservas para las salas de reuniones Cubo Itaú. Puedo ayudarte a crear, consultar y cancelar tus reservas. ¿En qué puedo asistirte hoy?
+
+---
+
+**You:** quiero que me agendes una reunion
+
+**Assistant:** ¡Claro! Para reservar la sala, necesito algunos detalles:
+
+1. **Sala** (A, B, C, D o E)
+2. **Fecha** (formato YYYY-MM-DD)
+3. **Hora de inicio** (formato HH:MM, 24 h)
+4. **Hora de fin** (formato HH:MM, 24 h)
+5. **Título de la reunión**
+6. **Número de asistentes**
+
+Con esa información podré confirmar la disponibilidad y crear la reserva. ¡Quedo atento!
+
+---
+
+**You:** A, 2026-09-03, 12H, 15H, Mostrar el MAS Sistema de gestion multiagentes, 30 personas
+
+**Assistant:** Perfecto. Para confirmar:
+
+- **Sala:** A
+- **Fecha:** 2026-09-03
+- **Hora de inicio:** 12:00
+- **Hora de fin:** 15:00
+- **Título:** "Mostrar el MAS Sistema de gestión multiagentes"
+- **Asistentes:** 30
+
+¿Todo correcto? Si lo es, procederé a crear la reserva.
+
+---
+
+**You:** Si
+
+**Assistant:** Lo siento, pero la sala A solo admite 4 personas y tu reunión requiere 30 asistentes.
+
+Podrías:
+- Elegir otra sala con mayor capacidad (por ejemplo, B, C, D o E).
+- Reducir el número de asistentes (si es posible).
+
+¿Te gustaría intentar con otra sala o ajustar el número de participantes?
+
+---
+
+**You:** la E
+
+**Assistant:** ¡Entendido! Confirmemos los detalles:
+
+- **Sala:** E
+- **Fecha:** 2026-09-03
+- **Hora de inicio:** 12:00
+- **Hora de fin:** 15:00
+- **Título:** "Mostrar el MAS Sistema de gestión multiagentes"
+- **Asistentes:** 30
+
+¿Todo correcto? Si lo es, crearé la reserva.
+
+---
+
+**You:** Si
+
+**Assistant:** Lo siento, pero la sala E solo admite 12 personas y tu reunión requiere 30 asistentes.
+
+Para continuar, puedes:
+1. **Elegir otra sala** con mayor capacidad (por ejemplo, B, C o D).
+2. **Reducir el número de asistentes** a 12 o menos.
+
+¿Con cuál opción te gustaría proceder?
+
+---
+
+**You:** Ok 12 personas
+
+**Assistant:** ¡Perfecto! Confirmemos los datos finales:
+
+- **Sala:** E
+- **Fecha:** 2026-09-03
+- **Hora de inicio:** 12:00
+- **Hora de fin:** 15:00
+- **Título:** "Mostrar el MAS Sistema de gestión multiagentes"
+- **Asistentes:** 12
+
+¿Todo correcto? Si lo es, crearé la reserva.
+
+---
+
+**You:** Si
+
+**Assistant:** ¡Reserva confirmada!
+
+📅 **Fecha:** 2026-09-03
+🕒 **Hora:** 12:00 – 15:00
+🏢 **Sala:** E
+👥 **Asistentes:** 12
+📝 **Título:** Mostrar el MAS Sistema de gestión multiagentes
+
+Tu reserva tiene el ID **1**. Si necesitas hacer algún cambio o cancelar, avísame. ¡Que tengas una excelente reunión!
