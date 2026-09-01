@@ -26,7 +26,11 @@ def _chat_loop(agent, thread_id: str):
     config = {"configurable": {"thread_id": thread_id}}
     print("\nYou're connected. Type 'exit' to quit.\n")
     while True:
-        user_input = input("You: ").strip()
+        try:
+            user_input = input("You: ").strip()
+        except (KeyboardInterrupt, EOFError):
+            print("\nBye!")
+            return
         if user_input.lower() in {"exit", "quit"}:
             print("Bye!")
             return
@@ -39,10 +43,13 @@ def _chat_loop(agent, thread_id: str):
 
 
 def main():
-    init_db()
-    user = _login()
-    agent = build_agent_for_user(user)
-    _chat_loop(agent, thread_id=user.user_id)
+    try:
+        init_db()
+        user = _login()
+        agent = build_agent_for_user(user)
+        _chat_loop(agent, thread_id=user.user_id)
+    except (KeyboardInterrupt, EOFError):
+        print("\nBye!")
 
 
 if __name__ == "__main__":
