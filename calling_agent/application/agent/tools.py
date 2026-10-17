@@ -1,4 +1,5 @@
-from datetime import UTC, date as date_cls, datetime
+from datetime import UTC, datetime
+from datetime import date as date_cls
 
 from langchain_core.tools import StructuredTool
 from pydantic import BaseModel, Field
@@ -100,6 +101,21 @@ def build_agent_tools(user_id: str, container: BookingContainer) -> list[Structu
             logger.error(f"Unexpected error listing bookings: {e}")
             return "Sorry, an unexpected error happened while listing your bookings."
 
+    def get_latest_booking() -> str:
+        try:
+            booking = container.list_bookings.execute_latest(user_id)
+            if booking is None:
+                return "You have no bookings."
+            return (
+                f"id={booking.id} room={booking.room_code} "
+                f"{booking.start_time.strftime(_DATETIME_FORMAT)} -> "
+                f"{booking.end_time.strftime('%H:%M')} title='{booking.title}' "
+                f"attendees={booking.attendees}"
+            )
+        except RuntimeError as e:
+            logger.error(f"Unexpected error getting latest booking: {e}")
+            return "Sorry, an unexpected error happened while getting your latest booking."
+
     return [
         StructuredTool.from_function(
             func=create_booking,
@@ -122,7 +138,16 @@ def build_agent_tools(user_id: str, container: BookingContainer) -> list[Structu
         StructuredTool.from_function(
             func=list_my_bookings,
             name="list_my_bookings",
-            description="List every booking that belongs to the active user.",
+            description="List every booking belonging to the active user. Use only when they ask for all or multiple bookings.",
+            args_schema=ListBookingsArgs,
+        ),
+        StructuredTool.from_function(
+            func=get_latest_booking,
+            name="get_latest_booking",
+            description=(
+                "Get only the active user's most recently created booking (highest booking ID). "
+                "Use for requests about the last/latest booking or a singular booking without a specified ID."
+            ),
             args_schema=ListBookingsArgs,
         ),
     ]

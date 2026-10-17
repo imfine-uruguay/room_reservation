@@ -11,3 +11,10 @@ class ListBookingsUseCase:
     def execute(self, user_id: str) -> list[BookingView]:
         bookings = self._booking_repo.list_for_user(user_id)
         return [BookingView(**b.__dict__) for b in bookings]
+
+    def execute_latest(self, user_id: str) -> BookingView | None:
+        bookings = self._booking_repo.list_for_user(user_id)
+        if not bookings:
+            return None
+        latest = max(bookings, key=lambda booking: booking.id or 0)
+        return BookingView(**latest.__dict__)

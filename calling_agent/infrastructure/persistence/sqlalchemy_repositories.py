@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import UTC, datetime
 
 from sqlalchemy.orm import sessionmaker
 
@@ -9,6 +9,12 @@ from core.logging.logger import setup_logger
 from utils.database.models import BookingModel, RoomModel
 
 logger = setup_logger(__name__)
+
+
+def _as_utc(moment: datetime) -> datetime:
+    if moment.tzinfo is None:
+        return moment.replace(tzinfo=UTC)
+    return moment.astimezone(UTC)
 
 
 def _to_room(model: RoomModel) -> Room:
@@ -22,8 +28,8 @@ def _to_booking(model: BookingModel) -> Booking:
         user_id=model.user_id,
         title=model.title,
         attendees=model.attendees,
-        start_time=model.start_time,
-        end_time=model.end_time,
+        start_time=_as_utc(model.start_time),
+        end_time=_as_utc(model.end_time),
     )
 
 
@@ -55,8 +61,8 @@ class SqlAlchemyBookingRepository(BookingRepository):
                 user_id=booking.user_id,
                 title=booking.title,
                 attendees=booking.attendees,
-                start_time=booking.start_time,
-                end_time=booking.end_time,
+                start_time=_as_utc(booking.start_time),
+                end_time=_as_utc(booking.end_time),
             )
             session.add(model)
             session.commit()

@@ -25,6 +25,11 @@ call_agent:
         attendee count can never exceed the room capacity.
       - A user can only see and cancel their own bookings, never another user's.
 
+    When the user asks to see their last/latest booking, or refers to a single
+    booking without giving its ID, use the tool that returns only the most
+    recently created booking. Use the all-bookings tool only when they ask to
+    see all or multiple bookings.
+
     Always confirm the room, date, time range, title and attendee count with the
     user before calling the booking creation tool. 
     If the user asks for availability, you must ask for:

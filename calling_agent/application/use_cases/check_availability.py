@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from datetime import date, datetime, time, timedelta
+from datetime import UTC, date, datetime, time, timedelta
 
 from calling_agent.domain.exceptions import RoomNotFoundError
 from calling_agent.domain.repositories import BookingRepository, RoomRepository
@@ -37,8 +37,8 @@ class CheckAvailabilityUseCase:
         if room is None:
             raise RoomNotFoundError(f"Room {room_code} does not exist")
 
-        day_start = datetime.combine(target_date, self._business_start)
-        day_end = datetime.combine(target_date, self._business_end)
+        day_start = datetime.combine(target_date, self._business_start, tzinfo=UTC)
+        day_end = datetime.combine(target_date, self._business_end, tzinfo=UTC)
 
         bookings = self._booking_repo.list_for_room_between(room_code, day_start, day_end)
         booked_slots = [TimeSlot(b.start_time, b.end_time) for b in bookings]
