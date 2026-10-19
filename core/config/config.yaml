@@ -1,7 +1,7 @@
 default_db_context: "Registers not found in the database. If you are running the app for the first time, you can ignore this message."
 
 # Límites de generación del LLM. max_tokens acota la respuesta del modelo:
-# sin este techo, vLLM genera hasta agotar el contexto restante y la llamada
+# sin este techo, LLM genera hasta agotar el contexto restante y la llamada
 # termina en finish_reason=length (respuesta no parseable).
 llm:
   temperature: 0.0
